@@ -728,7 +728,7 @@ public class GraphBuilder
     
     
     
-    public boolean  validationPruningMAllOldOldHeuristic(   int countElements, int countElementsFinal,ArrayList states, ArrayList finalList, ElementsToPlace objElemP,  Random random, double partialSymmetry, int floorTileHeight, int ruleThirds)
+    public boolean  validationPruningAllHeuristic(   int countElements, int countElementsFinal,ArrayList states, ArrayList finalList, ElementsToPlace objElemP,  Random random, double partialSymmetry, int floorTileHeight, int ruleThirds)
     { 
     	double tamBottomFromCenter=floorTileHeight-yCenterMassGeneral;
     	double tamTopFromCenter=yCenterMassGeneral-ruleThirds;
@@ -845,7 +845,7 @@ public class GraphBuilder
         	return false;
         }
     }
-    public boolean validationPruningMVerticalOldOldHeuristic(   int countElements, int countElementsFinal,ArrayList states, ArrayList finalList, ElementsToPlace objElemP,  Random random, double partialSymmetry, int floorTileHeight, int ruleThirds)
+    public boolean validationPruningVerticalHeuristic(   int countElements, int countElementsFinal,ArrayList states, ArrayList finalList, ElementsToPlace objElemP,  Random random, double partialSymmetry, int floorTileHeight, int ruleThirds)
     { 
     	double tamBottomFromCenter=floorTileHeight-yCenterMassGeneral;
     	double tamTopFromCenter=yCenterMassGeneral-ruleThirds;
@@ -2700,7 +2700,7 @@ public class GraphBuilder
     }  
 	
 	//3.7) B&B+oldold heuristic + oldoldHeuristic ---
-	public ArrayList  DepthSearchCenterFramePruningOldOldHeuristic(int width,int height,   int countElements, int countElementsFinal,ArrayList states, ConstraintsPlacement objConstraints, ArrayList finalList, ElementsToPlace objElemP,int maxLeft, int maxRight,int floorTileHeight, int maxObjLeft, int maxObjRight, int numEnemies, Random random, int globalControlSearch, double centerXGlobal,int typeSymmetry)
+	public ArrayList  depthSearchBBHeuristic(int width,int height,   int countElements, int countElementsFinal,ArrayList states, ConstraintsPlacement objConstraints, ArrayList finalList, ElementsToPlace objElemP,int maxLeft, int maxRight,int floorTileHeight, int maxObjLeft, int maxObjRight, int numEnemies, Random random, int globalControlSearch, double centerXGlobal,int typeSymmetry)
     {    
 		globalCenterXMass=centerXGlobal;
     	countElements--;
@@ -2989,7 +2989,7 @@ public class GraphBuilder
     		{
     			if(typeSymmetry==2)
     			{
-    				if(validationPruningMAllOldOldHeuristic(countElements, countElementsFinal, states,finalList, objElemP, random,partialSymmetry,floorTileHeight,ruleThirds)==true)
+    				if(validationPruningAllHeuristic(countElements, countElementsFinal, states,finalList, objElemP, random,partialSymmetry,floorTileHeight,ruleThirds)==true)
     				{
     					//System.out.println("cambiaso");
     					validationPruningM=true;
@@ -2997,7 +2997,7 @@ public class GraphBuilder
     			}
     			else if(typeSymmetry==1)
     			{
-    				if(validationPruningMVerticalOldOldHeuristic(countElements, countElementsFinal, states,finalList, objElemP, random,partialSymmetry,floorTileHeight,ruleThirds)==true)
+    				if(validationPruningVerticalHeuristic(countElements, countElementsFinal, states,finalList, objElemP, random,partialSymmetry,floorTileHeight,ruleThirds)==true)
     				{
     					//System.out.println("cambiaso");
     					validationPruningM=true;
@@ -3006,7 +3006,7 @@ public class GraphBuilder
     		}
     		if(countElements>0 && validationPruningM==false)
     		{    		    			
-    			DepthSearchCenterFramePruningOldOldHeuristic(width,height, countElements,countElementsFinal,states,objConstraints,finalList,objElemP,maxLeft,maxRight,floorTileHeight,localMaxObjLeft,localMaxObjRight,numEnemies,random,globalControlSearch+1,centerXGlobal,typeSymmetry);
+    			depthSearchBBHeuristic(width,height, countElements,countElementsFinal,states,objConstraints,finalList,objElemP,maxLeft,maxRight,floorTileHeight,localMaxObjLeft,localMaxObjRight,numEnemies,random,globalControlSearch+1,centerXGlobal,typeSymmetry);
     		}
     		else{
     			//System.out.println("aca se debe calcular la formula");
@@ -4047,11 +4047,11 @@ public class GraphBuilder
     	
         if(typeSymmetry==1)
         {
-        	symmetryV=Rythm1AreasVertical(states, xCenterMassGeneral, yCenterMassGeneral,objElemP );        
+        	symmetryV=verticalSymmetry(states, xCenterMassGeneral, yCenterMassGeneral,objElemP );        
         }
         else
         {
-        	symmetryV=Rythm1Areas(states, xCenterMassGeneral, yCenterMassGeneral,objElemP ); 	
+        	symmetryV=allSymetry(states, xCenterMassGeneral, yCenterMassGeneral,objElemP ); 	
         }
         
         return symmetryV;
@@ -4074,11 +4074,11 @@ public class GraphBuilder
        // symmetryV=symettry1Areas(states, objElemP, xCenterMassGeneral, yCenterMassGeneral,xCenterMassCoins, yCenterMassCoins);
         if(typeSymmetry==1)
         {
-        	symmetryV=Rythm1AreasVertical(states, xCenterMassGeneral, yCenterMassGeneral,objElemP );        
+        	symmetryV=verticalSymmetry(states, xCenterMassGeneral, yCenterMassGeneral,objElemP );        
         }
         else
         {
-        	symmetryV=Rythm1Areas(states, xCenterMassGeneral, yCenterMassGeneral,objElemP ); 	
+        	symmetryV=allSymetry(states, xCenterMassGeneral, yCenterMassGeneral,objElemP ); 	
         }
         double DistanceX=distanceBetweenX(states, objElemP, xCenterMassGeneral, yCenterMassGeneral,xCenterMassCoins, yCenterMassCoins);
         
@@ -4442,7 +4442,7 @@ public class GraphBuilder
 	return summatory;
 	}
 	
-	public double Rythm1AreasVertical(ArrayList states, double xCenterMassGeneral, double yCenterMassGeneral, ElementsToPlace objElemP)
+	public double verticalSymmetry(ArrayList states, double xCenterMassGeneral, double yCenterMassGeneral, ElementsToPlace objElemP)
 	{
 
 //		XsQuadrant=new ArrayList<Double>();
@@ -5040,7 +5040,7 @@ public class GraphBuilder
 		return rythmValueGeneral;
 	}
 	
-	public double Rythm1Areas(ArrayList states, double xCenterMassGeneral, double yCenterMassGeneral, ElementsToPlace objElemP)
+	public double allSymetry(ArrayList states, double xCenterMassGeneral, double yCenterMassGeneral, ElementsToPlace objElemP)
 	{
 //
 //		bestXs=new ArrayList<Double>();

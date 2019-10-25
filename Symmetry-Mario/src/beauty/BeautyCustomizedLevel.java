@@ -360,41 +360,8 @@ public class BeautyCustomizedLevel extends Level{
 	    	//Beststates=objGrapB.DepthSearchCenterFrame(mediumStraight,height,numElements-numEnemies,numElements-numEnemies,states,objConstraints, objElem.getFinalList(),objElem,1,mediumStraight-2,floorTileHeight,0,0,numEnemies,random,globalControlSearch);
 	    	//Beststates=objGrapB.DepthSearchPruningAlt(mediumStraight,height,numElements-numEnemies,numElements-numEnemies,states,objConstraints, objElem.getFinalList(),objElem,1,mediumStraight-2,floorTileHeight,0,0,numEnemies,random,globalControlSearch);
 	    	
-	    	/*
-	    	//Pruning complete-3.1!
-	    	long startTime = System.currentTimeMillis();
-	    	Beststates=objGrapB.DepthSearchCenterFramePruningAll(mediumStraight,height,numElements-numEnemies,numElements-numEnemies,states,objConstraints, objElem.getFinalList(),objElem,1,mediumStraight-2,floorTileHeight,0,0,numEnemies,random,globalControlSearch,7.5,typeSymmetry);	    	
-	    	long stopTime = System.currentTimeMillis();
-	        long elapsedTime = stopTime - startTime;
-	        System.out.println("Time Pruning complete "+elapsedTime);*/
-	        
-	        //3.2) B&B+heuristic + object ordering
-	    	/*startTime = System.currentTimeMillis();
-	    	Beststates2=objGrapB2.DepthSearchCenterFramePruningOrderObjects(mediumStraight,height,numElements-numEnemies,numElements-numEnemies,states,objConstraints, objElem.getFinalList(),objElem,1,mediumStraight-2,floorTileHeight,0,0,numEnemies,random,globalControlSearch,7.5,typeSymmetry);	    	
-	    	stopTime = System.currentTimeMillis();
-	        elapsedTime = stopTime - startTime;
-	        System.out.println("Time B&B+heuristic + object ordering "+elapsedTime);*/
 	       
-	    	/*
-	        //3.3) Brute-force search - Order List
-	    	startTime = System.currentTimeMillis();
-	    	Beststates3a=objGrapB3a.DepthSearchCenterFrameNoPruningNoRegionsNoObjects(mediumStraight,height,numElements-numEnemies,numElements-numEnemies,states,objConstraints, objElem.getFinalList(),objElem,1,mediumStraight-2,floorTileHeight,0,0,numEnemies,random,globalControlSearch,7.5,typeSymmetry);
-	    	stopTime = System.currentTimeMillis();
-	    	elapsedTime = stopTime - startTime;
-	        System.out.println("Time Brute-force search "+elapsedTime);*/
-	    	
-	        //3.4) B&Bheuristic + oldHeuristic ---
-	        //objElem.setFinalList(objElem.getFinalListNoOrder());
-	    	for(int i=0;i<1;i++)
-	    	{
-	    		startTime = System.currentTimeMillis();
-	    		Beststates4=objGrapB4.DepthSearchCenterFramePruning(mediumStraight,height,numElements-numEnemies,numElements-numEnemies,states,objConstraints, objElem.getFinalList(),objElem,0,mediumStraight-2,floorTileHeight,0,0,numEnemies,random,globalControlSearch,8,typeSymmetry);
-	    		stopTime = System.currentTimeMillis();
-	    		time4 = stopTime - startTime;
-	    		//sum4=sum4+time4;
-	    	}
-	    	//time4=sum4/time4;
-	        //System.out.println("Time B&B+heuristic "+elapsedTime);
+
 	        
 	        //3.3) Brute-force search
 	        //objElem.setFinalList(objElem.getFinalListNoOrder());
@@ -415,12 +382,12 @@ public class BeautyCustomizedLevel extends Level{
 	    	
 	        
 	        
-	        //3.7) B&B+heuristic +  oldoldheuristic
+	        //3.7) B&B+heuristic
 	        //objElem.setFinalList(objElem.getFinalListNoOrder());
 	    	for(int i=0;i<1;i++)
 	    	{
 	    		startTime = System.currentTimeMillis();
-	    		Beststates7=objGrapB7.DepthSearchCenterFramePruningOldOldHeuristic(mediumStraight,height,numElements-numEnemies,numElements-numEnemies,states,objConstraints, objElem.getFinalList(),objElem,0,mediumStraight-2,floorTileHeight,0,0,numEnemies,random,globalControlSearch,8,typeSymmetry);
+	    		Beststates7=objGrapB7.depthSearchBBHeuristic(mediumStraight,height,numElements-numEnemies,numElements-numEnemies,states,objConstraints, objElem.getFinalList(),objElem,0,mediumStraight-2,floorTileHeight,0,0,numEnemies,random,globalControlSearch,8,typeSymmetry);
 	    		stopTime = System.currentTimeMillis();
 	    		time7 = stopTime - startTime;
 //	    		round(time7,2);
